@@ -124,4 +124,10 @@ Tuning: `--gain` `--lift` (screen brightness), `--side dark|play`,
 | `whoo-timessquare/plate-panel-mask.png` | Detected white panel, used for clipping |
 | `whoo-timessquare/whoo-tvc-intro.mov` | TVC intro, 1280×720, 24fps, 4.45s |
 | `whoo-timessquare/whoo-timessquare-composite.mp4` | Delivered, 1920×1072, 24fps |
-| `whoo-timessquare/billboard-mockup.mp4` | Separate mockup, transcoded from VP9 webm |
+| `whoo-timessquare/billboard-mockup.mp4` | Separate mockup, 1924×1076, 30fps, silent |
+| `whoo-timessquare/billboard-mockup-2.mp4` | Separate mockup, 1288×720, 30fps, with audio |
+
+Both mockups arrived as VP9 `.webm`, which plays in browsers but little else —
+transcoded to H.264 with `+faststart`. The second was variable-frame-rate (a
+screen capture) and reported as 1000fps, which inflates the file and confuses
+editors; it was resampled to constant 30fps (148 frames over 5.00s).
