@@ -127,6 +127,7 @@ Tuning: `--gain` `--lift` (screen brightness), `--side dark|play`,
 | `whoo-timessquare/billboard-mockup.mp4` | Separate mockup, 1924×1076, 30fps, silent |
 | `whoo-timessquare/billboard-mockup-2.mp4` | Separate mockup, 1288×720, 30fps, with audio |
 | `whoo-timessquare/billboard-mockup-4.mp4` | Separate mockup, 1288×720, 30fps, with audio, 6s |
+| `whoo-timessquare/billboard-mockup-6.mp4` | Separate mockup, 1288×720, 30fps, with audio, 5s |
 
 The mockups arrive as VP9 `.webm`, which plays in browsers but little else —
 transcode to H.264 with `+faststart`. They are screen captures, so their headers
