@@ -17,6 +17,10 @@ brand. Two visual worlds:
   plum and gold 환유 (Hwanyu) packaging, warm lacquer-and-brocade hanok spa
   interiors. **Products are never altered** — always edit in place, never
   regenerate. See shot 09 in `references/shot-library.md`.
+- **World C — placement mockups.** Brand footage playing on real-world screens
+  (Times Square billboards and the like). Generate the plate, then composite the
+  clip with `scripts/billboard_wrap.py` — a generative video model cannot put
+  specific brand footage inside a screen. See `references/billboard-mockup.md`.
 
 Generation tool: **Nano Banana** (image attachments + natural-language prompt,
 no `--flags`). Midjourney conventions are kept in `references/brand-bible.md`
