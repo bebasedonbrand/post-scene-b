@@ -126,8 +126,17 @@ Tuning: `--gain` `--lift` (screen brightness), `--side dark|play`,
 | `whoo-timessquare/whoo-timessquare-composite.mp4` | Delivered, 1920×1072, 24fps |
 | `whoo-timessquare/billboard-mockup.mp4` | Separate mockup, 1924×1076, 30fps, silent |
 | `whoo-timessquare/billboard-mockup-2.mp4` | Separate mockup, 1288×720, 30fps, with audio |
+| `whoo-timessquare/billboard-mockup-4.mp4` | Separate mockup, 1288×720, 30fps, with audio, 6s |
 
-Both mockups arrived as VP9 `.webm`, which plays in browsers but little else —
-transcoded to H.264 with `+faststart`. The second was variable-frame-rate (a
-screen capture) and reported as 1000fps, which inflates the file and confuses
-editors; it was resampled to constant 30fps (148 frames over 5.00s).
+The mockups arrive as VP9 `.webm`, which plays in browsers but little else —
+transcode to H.264 with `+faststart`. They are screen captures, so their headers
+lie about frame rate (1000fps on one, 60 on another) which inflates the file and
+confuses editors. Count the real frames before encoding and pin the rate:
+
+```
+ffmpeg -i in.webm -map 0:v -f null -y /dev/null      # prints the true frame count
+ffmpeg -y -i in.webm -vsync cfr -r 30 -c:v libx264 -preset slow -crf 17 \
+  -pix_fmt yuv420p -c:a aac -b:a 192k -movflags +faststart out.mp4
+```
+
+All three came out at ~30fps. Drop the `-c:a` pair for a silent source.
