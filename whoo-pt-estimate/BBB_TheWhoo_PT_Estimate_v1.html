@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>BBB — The history of Whoo TR PT Estimate</title>
+<style>
+/* ══ A4 / PRINT GEOMETRY ══
+   A4 = 210 × 297mm. @page 여백은 0으로 두고 .page 안쪽 padding으로 여백을 잡는다.
+   min-height를 296mm로 두는 이유: 297mm 정확히 주면 브라우저 반올림 오차로
+   장마다 빈 페이지가 한 장씩 끼어 들어간다.
+   여백: 상하 18 / 좌우 20mm  →  실제 콘텐츠 영역 170 × 260mm */
+@page {
+  size: A4;
+  margin: 0;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#e0e0e0;
+  display:flex; flex-direction:column; align-items:center;
+  padding:40px 0 64px;
+  gap:28px;
+  font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact;
+}
+@media print {
+  body { background:#fff; padding:0; gap:0; display:block; }
+  .page { page-break-after:always; box-shadow:none; }
+  .page:last-child { page-break-after:auto; }
+}
+
+.page {
+  width:210mm;
+  min-height:296mm;
+  background:#fff;
+  padding:18mm 20mm;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 1px 6px rgba(0,0,0,.14);
+}
+
+/* ── HEADER ── */
+.header {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:16px;
+}
+.logo {
+  font-size:26px;
+  font-weight:900;
+  letter-spacing:-0.02em;
+  line-height:1.15;
+  text-transform:uppercase;
+}
+.doc-title {
+  text-align:right;
+  padding-top:3px;
+}
+.doc-title .t {
+  font-size:12.5px;
+  font-weight:700;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+}
+.doc-title .pg {
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:0.2em;
+  color:#aaa;
+  margin-top:6px;
+}
+
+/* ── NOTICE ── */
+.notice {
+  font-size:9.5px;
+  color:#555;
+  line-height:1.8;
+  margin-bottom:18px;
+}
+.notice span { color:#e00; }
+
+/* ── DIVIDER ── */
+.divider { height:1.5px; background:#000; }
+
+/* ── INFO TABLE ── */
+.info-table {
+  width:100%;
+  border-collapse:collapse;
+  margin-bottom:20px;
+}
+.info-table tr { border-bottom:1px solid #ddd; }
+.info-table td {
+  padding:7px 0;
+  font-size:11px;
+  vertical-align:top;
+}
+.info-table td:first-child {
+  width:165px;
+  font-weight:700;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  font-size:9px;
+  padding-right:20px;
+}
+.info-table td:last-child { font-size:11.5px; }
+.info-table .sub-note { color:#666; font-size:9.5px; }
+.amount-val {
+  font-size:15px !important;
+  font-weight:700;
+  letter-spacing:-0.02em;
+}
+.amount-vat {
+  font-size:9.5px;
+  color:#e00;
+  margin-left:12px;
+  font-weight:400;
+  letter-spacing:0.04em;
+}
+
+/* ── SCOPE TABLE ── */
+.scope-table {
+  width:100%;
+  border-collapse:collapse;
+  margin-bottom:20px;
+}
+.scope-table tr { border-bottom:1px solid #ddd; }
+.scope-table tr:first-child { border-top:1.5px solid #000; }
+.scope-table tr:last-child { border-bottom:1.5px solid #000; }
+.scope-table td {
+  padding:9px 0;
+  font-size:11px;
+  vertical-align:top;
+  line-height:1.65;
+}
+.scope-table td:first-child {
+  width:145px;
+  font-weight:700;
+  font-size:10px;
+  letter-spacing:0.04em;
+  padding-right:22px;
+}
+.scope-table td:last-child { color:#333; }
+.scope-table .sub { display:block; color:#666; font-size:9.5px; margin-top:1px; }
+.scope-table tr.thead td {
+  padding:8px 0;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:#000;
+}
+
+/* ── QUOTE TABLE ── */
+.quote-table {
+  width:100%;
+  border-collapse:collapse;
+}
+.quote-table thead tr {
+  border-top:1.5px solid #000;
+  border-bottom:1px solid #000;
+}
+.quote-table th {
+  padding:8px 0;
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  text-align:left;
+}
+.quote-table th:last-child,
+.quote-table td:last-child { text-align:right; }
+.quote-table tbody tr { border-bottom:1px solid #ddd; }
+.quote-table td {
+  padding:9px 0;
+  font-size:11px;
+  vertical-align:top;
+  line-height:1.6;
+}
+.quote-table .c1 { width:190px; padding-right:14px; font-weight:700; font-size:10.5px; }
+.quote-table .c2 { padding-right:14px; color:#555; font-size:9.5px; }
+.quote-table .c3 { width:60px; padding-right:10px; color:#555; font-size:9.5px; }
+.quote-table .c4 { width:115px; font-weight:700; letter-spacing:-0.01em; }
+.quote-table tr.sum-row {
+  border-top:1.5px solid #000;
+  border-bottom:1.5px solid #000;
+}
+.quote-table tr.sum-row td {
+  font-weight:700;
+  font-size:11px;
+  letter-spacing:0.04em;
+}
+
+/* ── SUM AREA ── */
+.sum-area {
+  display:flex;
+  justify-content:flex-end;
+  align-items:baseline;
+  padding:16px 0 26px;
+  gap:32px;
+}
+.sum-col { text-align:right; }
+.sum-col .label {
+  font-size:8.5px;
+  font-weight:700;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:#999;
+  margin-bottom:4px;
+}
+.sum-col .val {
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:-0.02em;
+}
+.sum-col.total .val { font-size:20px; }
+
+/* ── TERMS BLOCK ── */
+.term-block { margin-bottom:14px; }
+.term-block .label {
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  padding-bottom:5px;
+  border-bottom:1px solid #000;
+  margin-bottom:9px;
+}
+.term-block .body p {
+  font-size:10.5px;
+  line-height:1.78;
+  color:#333;
+}
+.term-block .body p .em { font-weight:700; color:#000; }
+.term-block .body .note {
+  margin-top:6px;
+  font-size:9px;
+  color:#666;
+  line-height:1.7;
+}
+
+/* ── SPACER ── */
+.spacer { flex:1; min-height:16px; }
+
+/* ── FOOTER ── */
+.footer {
+  border-top:1.5px solid #000;
+  padding-top:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:20px;
+}
+.footer-left .f-logo {
+  font-size:10.5px;
+  font-weight:900;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  line-height:1.4;
+}
+.footer-left .f-name {
+  font-size:9.5px;
+  color:#555;
+  margin-bottom:9px;
+}
+.footer-left .f-contact {
+  font-size:9px;
+  color:#555;
+  line-height:1.85;
+}
+.footer-right { text-align:right; }
+.footer-right .f-partner-label {
+  font-size:8.5px;
+  font-weight:700;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  border-bottom:1px solid #000;
+  padding-bottom:4px;
+  margin-bottom:7px;
+}
+.footer-right .f-partner-name {
+  font-size:10.5px;
+  font-weight:700;
+  margin-bottom:9px;
+}
+.footer-right .f-bank {
+  font-size:9px;
+  color:#555;
+  line-height:1.85;
+}
+
+/* ── B MARKS ── */
+.tagline-row {
+  display:flex;
+  justify-content:flex-end;
+  align-items:flex-end;
+}
+.b-marks { display:flex; gap:110px; }
+.b-mark {
+  font-size:21px;
+  font-weight:900;
+  letter-spacing:-0.02em;
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════ PAGE 1 — PROJECT · SCOPE · CONDITIONS ════════════════ -->
+<div class="page">
+
+  <div class="header">
+    <div class="logo">BE<br>BASED<br>ON<br>BRAND</div>
+    <div class="doc-title">
+      <div class="t">Project Estimate</div>
+      <div class="pg">01 / 02</div>
+    </div>
+  </div>
+
+  <div class="notice">
+    사전 협의된 프로젝트 범위와 일정 이외의 작업의 경우 추가 비용이 발생할 수 있습니다.
+  </div>
+
+  <div class="divider"></div>
+
+  <table class="info-table">
+    <tr>
+      <td>Project Title</td>
+      <td>더후(The history of Whoo) TR 리브랜딩 방향성 커뮤니케이션 PT 자료 제작</td>
+    </tr>
+    <tr>
+      <td>Client</td>
+      <td>LG생활건강 — 더후(The history of Whoo)</td>
+    </tr>
+    <tr>
+      <td>Project Period</td>
+      <td>2026. 07. 28 — 2026. 08. 10 <span class="sub-note">(최종 PT 8월 3주 기준)</span></td>
+    </tr>
+    <tr>
+      <td>Volume</td>
+      <td>총 25P <span class="sub-note">(1차 10P · 2차 15P)</span></td>
+    </tr>
+    <tr>
+      <td>Date of Preparation</td>
+      <td>2026. 07. 24</td>
+    </tr>
+    <tr>
+      <td>Project Amount (KRW)</td>
+      <td>
+        <span class="amount-val">8,000,000 (₩)</span>
+        <span class="amount-vat">부가세 10% 별도</span>
+      </td>
+    </tr>
+  </table>
+
+  <table class="scope-table">
+    <tr class="thead">
+      <td>Scope</td>
+      <td>Project Scope &amp; Inclusions</td>
+    </tr>
+    <tr>
+      <td>Layout System<br>&amp; Design</td>
+      <td>
+        장표 레이아웃 시스템 설계 및 페이지 디자인 — 총 25P
+        <span class="sub">콘텐츠 유형별 마스터 템플릿 · 서체 위계 및 컬러 시스템 · 그리드 구축 / 챕터 구조에 따른 장표 흐름 정리</span>
+      </td>
+    </tr>
+    <tr>
+      <td>Image Retouch</td>
+      <td>
+        수록 이미지 리터치 및 톤 통일
+        <span class="sub">색보정 · 누끼 · 합성 · 해상도 보정 / 자료 전체 이미지 톤앤매너 일치 작업</span>
+      </td>
+    </tr>
+    <tr>
+      <td>New Image<br>Source</td>
+      <td>
+        신규 이미지 소스 제작
+        <span class="sub">기존 소스로 대응이 어려운 장표의 이미지 신규 제작 · 합성 · 편집 / 협의된 페이지 범위 내 유연 대응</span>
+      </td>
+    </tr>
+    <tr>
+      <td>Source File<br>Delivery</td>
+      <td>
+        편집 가능한 원본 파일 납품 및 회차별 피드백 반영
+        <span class="sub">내부 세부 수정 · 문안 수정 대응을 위한 편집 원본(Keynote 또는 PowerPoint) 및 이미지 레이어 파일 제공</span>
+      </td>
+    </tr>
+  </table>
+
+  <div class="term-block">
+    <div class="label">Conditions</div>
+    <div class="body">
+      <p><span class="em">원고 전달 기준</span> — 각 납품 회차의 최종 텍스트 및 이미지 소스는 납품 예정일 <span class="em">4영업일 전</span>까지 전달을 원칙으로 하며, 지연 시 해당 회차 납품일이 순연됩니다.</p>
+      <p><span class="em">페이지 수 확정</span> — 2차 납품 분량은 15P를 기준으로 하며, 초과 페이지는 추가 요율을 적용합니다. 이미지 리터치 및 신규 이미지 소스 제작은 해당 페이지 범위 내에서 필요에 따라 유연하게 진행합니다.</p>
+      <p><span class="em">사용 서체</span> — Adobe Fonts · 무료 배포 서체 또는 클라이언트 보유 서체만을 사용하여, 납품 후 내부에서 원본 파일을 편집할 때 서체 문제가 발생하지 않도록 구성합니다.</p>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="footer">
+    <div class="footer-left">
+      <div class="f-logo">BE BASED ON BRAND</div>
+      <div class="f-name">대표 김가현</div>
+      <div class="f-contact">
+        Instagram @be.basedon.brand<br>
+        www.bbb-studio.kr &nbsp;·&nbsp; be.net/bebasedonbrand<br>
+        (+82) 10 3396 1620<br>
+        bebasedonbrand@gmail.com<br>
+        서대문구 연희동 74-6 지층 비베이스온브랜드
+      </div>
+    </div>
+    <div class="footer-right">
+      <div class="f-partner-label">Partner</div>
+      <div class="f-partner-name">LG생활건강 — 더후</div>
+      <div class="f-bank">
+        BE BASED ON BRAND (비베이스온브랜드)<br>
+        국민은행 671001-04-046081<br>
+        사업자등록번호 : 265-20-01322
+      </div>
+    </div>
+  </div>
+
+  <div class="tagline-row">
+    <div class="b-marks">
+      <span class="b-mark">B</span><span class="b-mark">B</span><span class="b-mark">B</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════ PAGE 2 — QUOTATION ════════════════ -->
+<div class="page">
+
+  <div class="header">
+    <div class="logo">BE<br>BASED<br>ON<br>BRAND</div>
+    <div class="doc-title">
+      <div class="t">Quotation</div>
+      <div class="pg">02 / 02</div>
+    </div>
+  </div>
+
+  <div class="notice">
+    납품 회차별 산정 내역입니다. 1차 납품은 레이아웃 시스템 구축이 포함되어 페이지 단가가 높게 책정되며,<br>
+    2차 납품은 1차에서 구축한 시스템을 기반으로 확장하므로 단가가 낮아집니다.
+  </div>
+
+  <div class="divider" style="margin-bottom:26px;"></div>
+
+  <table class="quote-table">
+    <thead>
+      <tr>
+        <th class="c1">Delivery</th>
+        <th class="c2">Type</th>
+        <th class="c3">Due</th>
+        <th class="c4">Quotation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="c1">1차 납품 — 간략화 버전</td>
+        <td class="c2">10P 기준 · 레이아웃 시스템 구축 포함 &nbsp;(P당 ₩350,000)</td>
+        <td class="c3">08. 03</td>
+        <td class="c4">₩3,500,000</td>
+      </tr>
+      <tr>
+        <td class="c1">2차 납품 — 확장 버전</td>
+        <td class="c2">15P 기준 · 1차 시스템 기반 확장 &nbsp;(P당 ₩300,000)</td>
+        <td class="c3">08. 10</td>
+        <td class="c4">₩4,500,000</td>
+      </tr>
+      <tr>
+        <td class="c1">이미지 리터치</td>
+        <td class="c2">전 장표 대상 · 색보정 / 누끼 / 합성 / 해상도 보정</td>
+        <td class="c3">—</td>
+        <td class="c4">포함</td>
+      </tr>
+      <tr>
+        <td class="c1">신규 이미지 소스 제작</td>
+        <td class="c2">장표 구성상 필요 시 · 협의된 페이지 범위 내</td>
+        <td class="c3">—</td>
+        <td class="c4">포함</td>
+      </tr>
+      <tr>
+        <td class="c1">편집 원본 파일 납품</td>
+        <td class="c2">내부 세부 수정 · 문안 수정 대응용 편집 가능 원본</td>
+        <td class="c3">—</td>
+        <td class="c4">포함</td>
+      </tr>
+      <tr class="sum-row">
+        <td colspan="3">SUM — 총 25P 기준</td>
+        <td class="c4">₩8,000,000</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="sum-area">
+    <div class="sum-col">
+      <div class="label">Supply</div>
+      <div class="val">8,000,000</div>
+    </div>
+    <div class="sum-col">
+      <div class="label">VAT (10%)</div>
+      <div class="val">800,000</div>
+    </div>
+    <div class="sum-col total">
+      <div class="label">Sum (₩)</div>
+      <div class="val">8,800,000</div>
+    </div>
+  </div>
+
+  <div class="term-block">
+    <div class="label">Additional Charges</div>
+    <div class="body">
+      <p>추가 페이지 발생 시 &nbsp;— &nbsp;<span class="em">P당 ₩300,000</span></p>
+      <p>유료 스톡 이미지 사용 시 &nbsp;— &nbsp;<span class="em">실비 청구</span></p>
+      <div class="note">※ 이미지 리터치 및 신규 이미지 소스 제작은 협의된 페이지 범위 내에서 별도 비용 없이 진행합니다.<br>
+      ※ 추가 항목은 발생 전 사전 협의 후 진행합니다.<br>
+      ※ 총액 ₩8,000,000 (VAT 별도) 기준 / 세금계산서 발행</div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <div class="footer">
+    <div class="footer-left">
+      <div class="f-logo">BE BASED ON BRAND</div>
+      <div class="f-name">대표 김가현</div>
+      <div class="f-contact">
+        Instagram @be.basedon.brand<br>
+        www.bbb-studio.kr &nbsp;·&nbsp; be.net/bebasedonbrand<br>
+        (+82) 10 3396 1620<br>
+        bebasedonbrand@gmail.com<br>
+        서대문구 연희동 74-6 지층 비베이스온브랜드
+      </div>
+    </div>
+    <div class="footer-right">
+      <div class="f-partner-label">Partner</div>
+      <div class="f-partner-name">LG생활건강 — 더후</div>
+      <div class="f-bank">
+        BE BASED ON BRAND (비베이스온브랜드)<br>
+        국민은행 671001-04-046081<br>
+        사업자등록번호 : 265-20-01322
+      </div>
+    </div>
+  </div>
+
+  <div class="tagline-row">
+    <div class="b-marks">
+      <span class="b-mark">B</span><span class="b-mark">B</span><span class="b-mark">B</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
