@@ -26,6 +26,10 @@ Generation tool: **Nano Banana** (image attachments + natural-language prompt,
 no `--flags`). Midjourney conventions are kept in `references/brand-bible.md`
 for when the user asks for them instead.
 
+Beyond image work, `references/estimate.md` holds the PT 제작 견적 — current
+figures, the unit-rate logic, and the conditions written into the document.
+Read it before touching `whoo-pt-estimate/`.
+
 ## Workflow
 
 1. **Read `references/brand-bible.md`** — the locked identity, garment, color and
